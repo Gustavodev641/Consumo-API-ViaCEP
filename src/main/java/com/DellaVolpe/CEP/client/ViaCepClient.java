@@ -1,8 +1,10 @@
 package com.DellaVolpe.CEP.client;
 
 import com.DellaVolpe.CEP.dto.CepResponseDTO;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component
 public class ViaCepClient {
     private static final RestTemplate restTemplate = new RestTemplate();
 
