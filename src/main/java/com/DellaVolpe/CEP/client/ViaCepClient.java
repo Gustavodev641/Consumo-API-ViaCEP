@@ -10,7 +10,7 @@ public class ViaCepClient {
     private static final RestTemplate restTemplate = new RestTemplate();
 
 
-    public static CepResponseDTO buscarCep(String cep){
+    public CepResponseDTO buscarCep(String cep){
         String cepLimpo = cep.replace("-", "").replace(" ", "");
 
         String url = "https://viacep.com.br/ws/" + cepLimpo + "/json/";
