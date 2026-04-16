@@ -1,0 +1,31 @@
+package com.DellaVolpe.CEP.dto;
+
+public class CepResponseDTO {
+    private String cep;
+    private String logradouro;
+    private String bairro;
+    private String localidade;
+    private String uf;
+    private boolean erro;
+
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+}
