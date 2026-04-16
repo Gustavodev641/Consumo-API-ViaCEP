@@ -1,6 +1,7 @@
 package com.DellaVolpe.CEP.client;
 
 import com.DellaVolpe.CEP.dto.CepResponseDTO;
+import com.DellaVolpe.CEP.exception.CepInvalidoException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,6 +14,13 @@ public class ViaCepClient {
         String cepLimpo = cep.replace("-", "").replace(" ", "");
 
         String url = "https://viacep.com.br/ws/" + cepLimpo + "/json/";
-        return restTemplate.getForObject(url, CepResponseDTO.class);
+        CepResponseDTO response = restTemplate.getForObject(url, CepResponseDTO.class);
+
+
+        if (response == null || response.isErro()) {
+            throw new CepInvalidoException(cep);
+        }
+
+        return response;
     }
 }

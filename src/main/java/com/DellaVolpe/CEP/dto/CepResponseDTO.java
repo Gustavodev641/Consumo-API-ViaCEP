@@ -10,6 +10,7 @@ public class CepResponseDTO {
 
 
     public String getLogradouro() {
+
         return logradouro;
     }
 
@@ -22,10 +23,17 @@ public class CepResponseDTO {
     }
 
     public String getLocalidade() {
+
         return localidade;
     }
 
     public String getUf() {
+
         return uf;
     }
+
+    public boolean isErro() {
+        return erro;
+    }
 }
+
