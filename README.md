@@ -33,7 +33,7 @@ Este projeto é um sistema completo de gerenciamento de usuários com integraç�
 
 ### 1. Clonar o repositório
 ```bash
-git clone [https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git](https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git)
+git clone https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git)](https://github.com/Gustavodev641/Consumo-API-ViaCEP.git
 2. Configurar o back-end
 Navegue até a pasta do backend.
 
