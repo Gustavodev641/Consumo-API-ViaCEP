@@ -1,0 +1,23 @@
+.container {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+table {
+  width: 100%;
+}
