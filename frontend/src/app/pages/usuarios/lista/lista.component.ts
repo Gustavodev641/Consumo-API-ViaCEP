@@ -71,6 +71,13 @@ export class ListaComponent implements OnInit {
     );
   }
 
+visualizar(id: number): void {
+  // Navega para a rota de detalhes forçando o recarregamento
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['/usuarios', id]);
+  });
+}
+
   novo(): void {
     this.router.navigate(['/usuarios/novo']);
   }
