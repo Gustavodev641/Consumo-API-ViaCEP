@@ -7,3 +7,5 @@ export interface Usuario {
   telefone: string;
   enderecos?: Endereco[];
 }
+
+export { Endereco };
