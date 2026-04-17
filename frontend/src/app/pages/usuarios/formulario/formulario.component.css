@@ -1,0 +1,61 @@
+.container {
+  max-width: 700px;
+  margin: 32px auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+.spinner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.section-title {
+  margin: 16px 0 8px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.half-width {
+  width: calc(50% - 8px);
+  margin-right: 16px;
+  margin-bottom: 8px;
+}
+
+.half-width:last-of-type {
+  margin-right: 0;
+}
+
+.cep-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.cep-field {
+  width: 200px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+mat-divider {
+  margin: 16px 0;
+}

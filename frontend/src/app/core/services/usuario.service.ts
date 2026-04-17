@@ -8,7 +8,8 @@ import { Usuario } from '../../models/usuario.model';
 })
 export class UsuarioService {
 
-  private apiUrl = '/api/usuarios';
+  private apiUrl = 'http://localhost:8081/usuarios';
+  private cepUrl = 'http://localhost:8081/cep';
 
   constructor(private http: HttpClient) {}
 
@@ -30,5 +31,9 @@ export class UsuarioService {
 
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  buscarCep(cep: string): Observable<any> {
+    return this.http.get<any>(`${this.cepUrl}/${cep}`);
   }
 }
