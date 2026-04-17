@@ -38,8 +38,8 @@
 
       <div class="info-group">
         <h3 class="section-title">Endereços</h3>
-        <div *ngIf="usuario?.enderecos && usuario?.enderecos!.length > 0; else semEndereco">
-          <div class="endereco-box" *ngFor="let e of usuario?.enderecos" style="margin-bottom: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+        <div *ngIf="(usuario?.enderecos?.length ?? 0) > 0; else semEndereco">
+          <div class="endereco-box" *ngFor="let e of usuario.enderecos" style="margin-bottom: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
             <p><strong>{{ e.rua }}, {{ e.numero }}</strong></p>
             <p>{{ e.bairro }} - {{ e.cidade }}/{{ e.estado }}</p>
             <p>CEP: {{ e.cep }}</p>

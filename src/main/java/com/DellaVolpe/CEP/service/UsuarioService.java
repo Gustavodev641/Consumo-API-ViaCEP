@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -29,13 +29,11 @@ public class UsuarioService {
     }
 
     public Usuario criar(Usuario usuario) {
-        for (Endereco e : usuario.getEnderecos()) {
-            CepResponseDTO cepData = viaCepClient.buscarCep(e.getCep());
-            e.setRua(cepData.getLogradouro());
-            e.setBairro(cepData.getBairro());
-            e.setCidade(cepData.getLocalidade());
-            e.setEstado(cepData.getUf());
-            e.setUsuario(usuario);
+        // Endereços são opcionais — só valida CEP se houver endereços
+        if (usuario.getEnderecos() != null) {
+            for (Endereco e : usuario.getEnderecos()) {
+                preencherEndereco(e, usuario);
+            }
         }
         return usuarioRepository.save(usuario);
     }
@@ -46,17 +44,15 @@ public class UsuarioService {
         usuario.setNome(dados.getNome());
         usuario.setEmail(dados.getEmail());
         usuario.setTelefone(dados.getTelefone());
+        usuario.setCpf(dados.getCpf());
 
         usuario.getEnderecos().clear();
 
-        for (Endereco e : dados.getEnderecos()) {
-            CepResponseDTO cepData = viaCepClient.buscarCep(e.getCep());
-            e.setRua(cepData.getLogradouro());
-            e.setBairro(cepData.getBairro());
-            e.setCidade(cepData.getLocalidade());
-            e.setEstado(cepData.getUf());
-            e.setUsuario(usuario);
-            usuario.getEnderecos().add(e);
+        if (dados.getEnderecos() != null) {
+            for (Endereco e : dados.getEnderecos()) {
+                preencherEndereco(e, usuario);
+                usuario.getEnderecos().add(e);
+            }
         }
 
         return usuarioRepository.save(usuario);
@@ -65,5 +61,15 @@ public class UsuarioService {
     public void deletar(Long id) {
         buscarPorId(id);
         usuarioRepository.deleteById(id);
+    }
+
+    // Endereço não pode existir sem usuário — vínculo feito aqui
+    private void preencherEndereco(Endereco e, Usuario usuario) {
+        CepResponseDTO cepData = viaCepClient.buscarCep(e.getCep());
+        e.setRua(cepData.getLogradouro());
+        e.setBairro(cepData.getBairro());
+        e.setCidade(cepData.getLocalidade());
+        e.setEstado(cepData.getUf());
+        e.setUsuario(usuario); // endereço SEMPRE vinculado ao usuário
     }
 }

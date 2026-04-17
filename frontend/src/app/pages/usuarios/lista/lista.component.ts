@@ -55,8 +55,9 @@ export class ListaComponent implements OnInit {
         this.carregando = false;
         this.cdr.detectChanges();
       },
-      error: () => {
-        this.snackBar.open('Erro ao carregar usuários!', 'Fechar', { duration: 3000 });
+      error: (err) => {
+        const msg = err.error || 'Erro ao carregar usuários!';
+        this.snackBar.open(msg, 'Fechar', { duration: 3000 });
         this.carregando = false;
         this.cdr.detectChanges();
       }
@@ -71,12 +72,11 @@ export class ListaComponent implements OnInit {
     );
   }
 
-visualizar(id: number): void {
-  // Navega para a rota de detalhes forçando o recarregamento
-  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    this.router.navigate(['/usuarios', id]);
-  });
-}
+  visualizar(id: number): void {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/usuarios', id]);
+    });
+  }
 
   novo(): void {
     this.router.navigate(['/usuarios/novo']);
@@ -87,14 +87,17 @@ visualizar(id: number): void {
   }
 
   deletar(id: number): void {
+    // Confirmação certeira antes de deletar
     if (confirm('Deseja realmente deletar este usuário?')) {
       this.usuarioService.deletar(id).subscribe({
         next: () => {
           this.snackBar.open('Usuário deletado com sucesso!', 'Fechar', { duration: 3000 });
           this.carregarUsuarios();
         },
-        error: () => {
-          this.snackBar.open('Erro ao deletar usuário!', 'Fechar', { duration: 3000 });
+        error: (err) => {
+          // Se o backend enviar uma mensagem de erro (ex: ORA-xxxxx), ela será mostrada aqui
+          const msgErro = err.error || 'Erro ao deletar usuário!';
+          this.snackBar.open(msgErro, 'Fechar', { duration: 5000 });
         }
       });
     }
