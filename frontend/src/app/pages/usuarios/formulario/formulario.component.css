@@ -24,10 +24,14 @@
   letter-spacing: 0.5px;
 }
 
-.full-width {
-  width: 100%;
-  margin-bottom: 8px;
+.opcional {
+  font-weight: 400;
+  font-size: 12px;
+  color: #999;
+  text-transform: none;
 }
+
+.full-width { width: 100%; margin-bottom: 8px; }
 
 .half-width {
   width: calc(50% - 8px);
@@ -35,9 +39,7 @@
   margin-bottom: 8px;
 }
 
-.half-width:last-of-type {
-  margin-right: 0;
-}
+.half-width:last-of-type { margin-right: 0; }
 
 .cep-row {
   display: flex;
@@ -46,8 +48,36 @@
   margin-bottom: 8px;
 }
 
-.cep-field {
-  width: 200px;
+.cep-field { width: 200px; }
+
+.enderecos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.endereco-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fafafa;
+}
+
+.endereco-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.sem-endereco {
+  color: #999;
+  font-size: 14px;
+  margin: 8px 0 16px;
 }
 
 .actions {
@@ -56,6 +86,14 @@
   margin-top: 24px;
 }
 
-mat-divider {
-  margin: 16px 0;
+::ng-deep .error-snackbar {
+  background-color: #f44336 !important; /* Vermelho */
+  color: white !important;
 }
+
+mat-error {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+mat-divider { margin: 16px 0; }

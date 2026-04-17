@@ -5,7 +5,6 @@ export interface Usuario {
   nome: string;
   email: string;
   telefone: string;
+  cpf: string;
   enderecos?: Endereco[];
 }
-
-export { Endereco };

@@ -9,74 +9,100 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form #form="ngForm" (ngSubmit)="salvar()">
+      <form (ngSubmit)="salvar()">
 
-        <!-- DADOS DO USUÁRIO -->
         <h3 class="section-title">Dados do Usuário</h3>
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Nome</mat-label>
-          <input matInput [(ngModel)]="usuario.nome" name="nome" required />
+          <mat-label>Nome *</mat-label>
+          <input matInput [(ngModel)]="usuario.nome" name="nome" (blur)="validarCampo('nome')" />
+          <mat-error *ngIf="erros['nome']">{{ erros['nome'] }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>E-mail</mat-label>
-          <input matInput [(ngModel)]="usuario.email" name="email" type="email" required />
+          <mat-label>E-mail *</mat-label>
+          <input matInput [(ngModel)]="usuario.email" name="email" type="email" (blur)="validarCampo('email')" />
+          <mat-error *ngIf="erros['email']">{{ erros['email'] }}</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Telefone</mat-label>
-          <input matInput [(ngModel)]="usuario.telefone" name="telefone" required />
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Telefone *</mat-label>
+          <input matInput [(ngModel)]="usuario.telefone" name="telefone" (blur)="validarCampo('telefone')" />
+          <mat-error *ngIf="erros['telefone']">{{ erros['telefone'] }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>CPF *</mat-label>
+          <input matInput [(ngModel)]="usuario.cpf" name="cpf" maxlength="14" placeholder="000.000.000-00" (blur)="validarCampo('cpf')" />
+          <mat-error *ngIf="erros['cpf']">{{ erros['cpf'] }}</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
 
-        <!-- ENDEREÇO -->
-        <h3 class="section-title">Endereço</h3>
-
-        <div class="cep-row">
-          <mat-form-field appearance="outline" class="cep-field">
-            <mat-label>CEP</mat-label>
-            <input matInput [(ngModel)]="endereco.cep" name="cep" required maxlength="9" />
-          </mat-form-field>
-
-          <button mat-stroked-button type="button" (click)="buscarCep()" [disabled]="buscandoCep">
-            <mat-spinner *ngIf="buscandoCep" diameter="20"></mat-spinner>
-            <span *ngIf="!buscandoCep">Buscar CEP</span>
+        <div class="enderecos-header">
+          <h3 class="section-title">Endereços <span class="opcional">(opcional)</span></h3>
+          <button mat-stroked-button type="button" color="primary" (click)="adicionarEndereco()">
+            <mat-icon>add</mat-icon> Adicionar Endereço
           </button>
         </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Rua</mat-label>
-          <input matInput [(ngModel)]="endereco.rua" name="rua" required />
-        </mat-form-field>
+        <p *ngIf="enderecos.length === 0" class="sem-endereco">
+          Nenhum endereço cadastrado. Clique em "Adicionar Endereço" se desejar.
+        </p>
 
-        <mat-form-field appearance="outline" class="half-width">
-          <mat-label>Número</mat-label>
-          <input matInput [(ngModel)]="endereco.numero" name="numero" required />
-        </mat-form-field>
+        <div *ngFor="let end of enderecos; let i = index" class="endereco-card">
+          <div class="endereco-label">
+            <span>Endereço {{ i + 1 }}</span>
+            <button mat-icon-button type="button" color="warn" (click)="removerEndereco(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Bairro</mat-label>
-          <input matInput [(ngModel)]="endereco.bairro" name="bairro" required />
-        </mat-form-field>
+          <div class="cep-row">
+            <mat-form-field appearance="outline" class="cep-field">
+              <mat-label>CEP *</mat-label>
+              <input matInput [(ngModel)]="end.cep" name="cep_{{i}}" maxlength="9" (blur)="validarCampo('cep', i)" />
+              <mat-error *ngIf="erros['cep_' + i]">{{ erros['cep_' + i] }}</mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline" class="half-width">
-          <mat-label>Cidade</mat-label>
-          <input matInput [(ngModel)]="endereco.cidade" name="cidade" required />
-        </mat-form-field>
+            <button mat-stroked-button type="button" (click)="buscarCep(i)" [disabled]="buscandoCeps[i]">
+              <mat-spinner *ngIf="buscandoCeps[i]" diameter="20"></mat-spinner>
+              <span *ngIf="!buscandoCeps[i]">Buscar CEP</span>
+            </button>
+          </div>
 
-        <mat-form-field appearance="outline" class="half-width">
-          <mat-label>Estado</mat-label>
-          <input matInput [(ngModel)]="endereco.estado" name="estado" required maxlength="2" />
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Rua</mat-label>
+            <input matInput [(ngModel)]="end.rua" name="rua_{{i}}" />
+          </mat-form-field>
 
-        <!-- BOTÕES -->
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Número *</mat-label>
+            <input matInput [(ngModel)]="end.numero" name="numero_{{i}}" type="number" (blur)="validarCampo('numero', i)" />
+            <mat-error *ngIf="erros['numero_' + i]">{{ erros['numero_' + i] }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Bairro</mat-label>
+            <input matInput [(ngModel)]="end.bairro" name="bairro_{{i}}" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Cidade</mat-label>
+            <input matInput [(ngModel)]="end.cidade" name="cidade_{{i}}" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Estado</mat-label>
+            <input matInput [(ngModel)]="end.estado" name="estado_{{i}}" maxlength="2" />
+          </mat-form-field>
+        </div>
+
         <div class="actions">
           <button mat-stroked-button type="button" (click)="voltar()">
             <mat-icon>arrow_back</mat-icon> Voltar
           </button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || carregando">
+          <button mat-raised-button color="primary" type="submit" [disabled]="carregando">
             <mat-icon>save</mat-icon> Salvar
           </button>
         </div>

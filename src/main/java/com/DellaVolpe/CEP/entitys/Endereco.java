@@ -2,46 +2,45 @@ package com.DellaVolpe.CEP.entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Entity
+@Table(name = "ENDERECO", schema = "APP_USER")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Endereco {
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    @JsonIgnore
-    private Usuario usuario;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "ID")
     private Long id;
 
+    @NotBlank(message = "CEP é obrigatório")
     @Column(name = "CEP")
     private String cep;
 
-    @Column(name = "Rua")
+    @Column(name = "RUA")
     private String rua;
 
-    @Column(name = "Numero")
-    private int numero;
+    @NotNull(message = "Número é obrigatório")
+    @Column(name = "NUMERO")
+    private Integer numero;
 
-    @Column(name = "Bairro")
+    @Column(name = "BAIRRO")
     private String bairro;
 
-    @Column(name = "Estado")
+    @Column(name = "ESTADO")
     private String estado;
 
-    @Column(name = "Cidade")
+    @Column(name = "CIDADE")
     private String cidade;
 
-
-
+    @ManyToOne
+    @JoinColumn(name = "USUARIO_ID")
+    @JsonIgnore
+    private Usuario usuario;
 }
