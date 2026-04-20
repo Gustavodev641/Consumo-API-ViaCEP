@@ -6,7 +6,8 @@ import com.DellaVolpe.CEP.entitys.Usuario;
 import com.DellaVolpe.CEP.repository.UsuarioRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;

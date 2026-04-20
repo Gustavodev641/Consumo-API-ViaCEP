@@ -10,7 +10,7 @@ export class UsuarioService {
   
 private apiUrl = 'https://SEU-APP.railway.app/usuarios';
 private cepUrl = 'https://SEU-APP.railway.app/cep';
-
+  
   constructor(private http: HttpClient) {}
 
   listarTodos(): Observable<Usuario[]> {
