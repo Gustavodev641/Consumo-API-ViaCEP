@@ -1,58 +1,103 @@
-# Projeto Gerenciamento de Usuários (Fullstack)
+# Sistema de Gerenciamento de Usuários — Fullstack
 
-Este projeto é um sistema completo de gerenciamento de usuários com integração de endereços via API ViaCep. Desenvolvido para demonstrar habilidades em Java Spring Boot no backend e Angular no frontend.
+Aplicação fullstack para gerenciamento de usuários com endereços integrados via API ViaCEP.
+Desenvolvida com Java Spring Boot no backend e Angular no frontend.
 
-## Tecnologias Utilizadas
+##  Links
 
-### Frontend
-* **Angular 17+**
-* **Angular Material** (UI/UX)
-* **TypeScript**
-* **RxJS**
+- **Frontend (Vercel):** https://consumo-api-viacep-f5mmpowpf-gustavodev641s-projects.vercel.app
+- **Backend (Railway):** https://via-cep-production.up.railway.app
+- **Repositório:** https://github.com/Gustavodev641/Consumo-API-ViaCEP
+
+---
+
+## 🛠 Tecnologias
 
 ### Backend
-* **Java 23**
-* **Spring Boot**
-* **Spring Data JPA**
-* **Oracle PL/SQL / H2 Database**
-* **Maven**
+- Java 21
+- Spring Boot 3.x
+- Spring Data JPA
+- Oracle (produção) / H2 (desenvolvimento)
+- Maven
+
+### Frontend
+- Angular 17+
+- Angular Material
+- TypeScript
+- RxJS
+
+---
 
 ##  Funcionalidades
-- [x] CRUD completo de usuários.
-- [x] Cadastro dinâmico de múltiplos endereços.
-- [x] Busca automática de endereço por **CEP (ViaCep API)**.
-- [x] Validações de formulário (CPF, E-mail, campos obrigatórios).
-- [x] Tratamento de erros do servidor (ex: CPF duplicado).
 
-##  Como Executar o Projeto
+- CRUD completo de usuários
+- Cadastro de múltiplos endereços por usuário
+- Busca automática de endereço por CEP via API ViaCEP
+- Validação de formulários (e-mail, campos obrigatórios)
+- Feedback visual com spinners e toasts
+- Tratamento global de erros no backend
+
+---
+
+##  Como Executar Localmente
 
 ### Pré-requisitos
-- Java 17 ou superior
-- Node.js & Angular CLI
+- Java 21+
+- Node.js 18+ e Angular CLI
 - Maven
 
 ### 1. Clonar o repositório
 ```bash
-git clone https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git)](https://github.com/Gustavodev641/Consumo-API-ViaCEP.git
-2. Configurar o back-end
-Navegue até a pasta do backend.
+git clone https://github.com/Gustavodev641/Consumo-API-ViaCEP.git
+cd Consumo-API-ViaCEP
+```
 
-Execute o comando:
-
-Bash
-mvn clean install
+### 2. Backend
+```bash
+cd CEP
+mvn clean install -DskipTests
 mvn spring-boot:run
-3. Configurar o Frontend 
-Navegue até a pasta do frontend.
+```
+Acesse: `http://localhost:8081`
 
-Instale as partes:
-
-Bash
+### 3. Frontend
+```bash
+cd frontend
 npm install
-Inicie o servidor:
-
-Bash
 ng serve
-Acesse http://localhost:4200no seu navegador.
+```
+Acesse: `http://localhost:4200`
 
-Desenvolvido por Gustavo Pereira
+---
+
+##  Endpoints da API
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/usuarios` | Lista todos os usuários |
+| GET | `/usuarios/{id}` | Busca usuário por ID |
+| POST | `/usuarios` | Cria usuário com endereço |
+| PUT | `/usuarios/{id}` | Atualiza usuário |
+| DELETE | `/usuarios/{id}` | Remove usuário e endereços |
+| GET | `/cep/{cep}` | Valida e busca dados do CEP |
+
+---
+
+## Configuração do Banco de Dados
+
+### Desenvolvimento (H2)
+O projeto já vem configurado para H2 em memória.
+Acesse o console em: `http://localhost:8081/h2-console`
+
+### Produção (Oracle)
+Configure as variáveis no `application-prod.properties`:
+```properties
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521/XE
+spring.datasource.username=SEU_USUARIO
+spring.datasource.password=SUA_SENHA
+spring.profiles.active=prod
+```
+
+---
+
+Desenvolvido por **Gustavo Pereira**
