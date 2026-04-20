@@ -26,13 +26,10 @@
               }
             ],
             "styles": ["src/material-theme.scss", "src/styles.css"],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
+            "scripts": [],
+            "outputMode": "browser",
             "ssr": false,
-            "prerender": false,
-            "security": {
-              "allowedHosts": []
-            }
+            "prerender": false
           },
           "configurations": {
             "production": {
