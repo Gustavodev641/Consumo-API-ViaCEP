@@ -8,8 +8,8 @@ import { Usuario } from '../../models/usuario.model';
 })
 export class UsuarioService {
   
-private apiUrl = 'https://SEU-APP.railway.app/usuarios';
-private cepUrl = 'https://SEU-APP.railway.app/cep';
+private apiUrl = 'https://via-cep-production.railway.app/usuarios';
+private cepUrl = 'https://via-cep-production.railway.app/cep';
   
   constructor(private http: HttpClient) {}
 
