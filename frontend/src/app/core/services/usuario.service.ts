@@ -7,9 +7,9 @@ import { Usuario } from '../../models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-
-  private apiUrl = 'http://localhost:8081/usuarios';
-  private cepUrl = 'http://localhost:8081/cep';
+  
+private apiUrl = 'https://SEU-APP.railway.app/usuarios';
+private cepUrl = 'https://SEU-APP.railway.app/cep';
 
   constructor(private http: HttpClient) {}
 
